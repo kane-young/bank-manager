@@ -1,13 +1,21 @@
 ## ios-bank-manager
 
 ### Comand Line
-![ios-bank-manager](https://user-images.githubusercontent.com/38858863/125564546-06777969-984b-4c25-bdc2-623c5e8fd326.gif)
+
+<img src="https://user-images.githubusercontent.com/38858863/125564546-06777969-984b-4c25-bdc2-623c5e8fd326.gif" width="500">	
+
+<br>
 
 ### UML
-![UML](https://user-images.githubusercontent.com/38858863/127761433-d98b2fde-9ed2-49b8-af4b-eeac84921b04.png)
+<img src="https://user-images.githubusercontent.com/38858863/127761433-d98b2fde-9ed2-49b8-af4b-eeac84921b04.png" width="600">
+
+<br>
 
 ### Flow Chart
-![Folw_Chart](https://user-images.githubusercontent.com/38858863/127761445-385f5527-6ec8-4e02-9e27-fe402a41a5db.png)
+
+<img src="https://user-images.githubusercontent.com/38858863/127761445-385f5527-6ec8-4e02-9e27-fe402a41a5db.png" width="500">
+
+<br>
 
 ## Code Review
 
