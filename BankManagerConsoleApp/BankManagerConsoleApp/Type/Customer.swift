@@ -7,13 +7,10 @@
 
 import Foundation
 
-final class Customer {
-  private let ticketNumber: Int
-  private var grade: CustomerGrade
-  private let taskType: TaskType
-  private var task: BankTask {
-    return BankTask(number: ticketNumber, grade: grade, type: taskType)
-  }
+struct Customer {
+  let ticketNumber: Int
+  let grade: CustomerGrade
+  let taskType: TaskType
 
   init(order orderNumber: Int, grade: CustomerGrade, taskType: TaskType) {
     self.ticketNumber = orderNumber
@@ -21,11 +18,16 @@ final class Customer {
     self.taskType = taskType
   }
 
-  func showTask() -> BankTask {
-    return task
+  func task() -> BankTask {
+    switch taskType {
+    case .deposit:
+      return DepositTask(customer: self)
+    case .loan:
+      return LoanTask(customer: self)
+    }
   }
   
-  func showCustomerProperty() -> (Int, CustomerGrade, TaskType) {
-    return (ticketNumber, grade, taskType)
+  func priority() -> Operation.QueuePriority {
+    return grade.queuePriority
   }
 }
