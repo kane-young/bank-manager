@@ -7,18 +7,22 @@
 
 import Foundation
 
-class HeadQuarterTask: Operation {
-  private let number: Int
-  private let grade: CustomerGrade
+final class HeadQuarterTask: Operation {
+  private let customer: Customer
+  private let firstHandler: (_ : Customer) -> ()
+  private let completionHandler: (_ : Customer) -> ()
   
-  init(number: Int, grade: CustomerGrade) {
-    self.number = number
-    self.grade = grade
+  init(customer: Customer,
+       firstHandler: @escaping (_ : Customer) -> (),
+       completionHandler: @escaping (_ : Customer) -> ()) {
+    self.customer = customer
+    self.firstHandler = firstHandler
+    self.completionHandler = completionHandler
   }
   
   override func main() {
-    print("\(number)번 \(grade)고객 대출심사 시작")
+    firstHandler(customer)
     Thread.sleep(forTimeInterval: 0.5)
-    print("\(number)번 \(grade)고객 대출심사 완료")
+    completionHandler(customer)
   }
 }

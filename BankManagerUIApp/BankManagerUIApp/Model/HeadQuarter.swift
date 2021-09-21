@@ -8,15 +8,19 @@
 import Foundation
 
 final class HeadQuarter {
-  static let headQuarter: HeadQuarter = HeadQuarter()
+  static let shared: HeadQuarter = HeadQuarter()
   private var operationQueue = OperationQueue()
   
-  private init() { }
-  
-  func processTask(number: Int, grade: CustomerGrade, completion: @escaping ()->Void = { }) {
+  private init() {
     operationQueue.maxConcurrentOperationCount = 1
-    let task = HeadQuarterTask(number: number, grade: grade)
-    task.completionBlock = completion
+  }
+  
+  func evaluate(customer: Customer,
+                firstCompletion: @escaping (_: Customer) -> Void,
+                completionHandler: @escaping (_: Customer) -> Void) {
+    let task = HeadQuarterTask(customer: customer,
+                               firstHandler: firstCompletion,
+                               completionHandler: completionHandler)
     operationQueue.addOperations( [task] , waitUntilFinished: true)
   }
 }

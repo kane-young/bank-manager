@@ -8,29 +8,35 @@
 import Foundation
 
 final class Bank {
-  private let bankerNumber = 3
-  private var bankManager: BankManager
-  private var totalCustomerCount: Int = 0
+  private let operationQueue: OperationQueue = OperationQueue()
+  private var firstHandler: (_ : Customer) -> Void = { _ in }
+  private var secondHandler: (_ : Customer) -> Void = { _ in }
+  private var thirdHandler: (_ : Customer) -> Void = { _ in }
   
-  init() throws {
-    try self.bankManager = BankManager(numberOfBankers: bankerNumber)
+  init(bankerCount: Int) {
+    operationQueue.maxConcurrentOperationCount = bankerCount
+  }
+  
+  init(bankerCount: Int, firstHandler: @escaping (_ : Customer) -> Void,
+       secondHandler: @escaping (_ : Customer) -> Void,
+       thirdHandler: @escaping (_ : Customer) -> Void) {
+    operationQueue.maxConcurrentOperationCount = bankerCount
+    self.firstHandler = firstHandler
+    self.secondHandler = secondHandler
+    self.thirdHandler = thirdHandler
   }
 
-  func open() {
-    let openTime = CFAbsoluteTimeGetCurrent()
-    self.totalCustomerCount = bankManager.inputCustomersIntoOperationQueue()
-    close(from: openTime, total: self.totalCustomerCount)
+  func insertCustomers(count: Int) throws {
+    let customers = try CustomerMaker().makeCustomer(count: count)
+    
+    for customer in customers {
+      let task = BankTask(customer: customer, firstHandler: firstHandler,
+      midHandler: secondHandler, completionHandler: thirdHandler)
+      operationQueue.addOperation(task)
+    }
   }
   
-  private func close(from openTime: CFAbsoluteTime, total: Int) {
-    let closeTime = CFAbsoluteTimeGetCurrent()
-    let totalWorkTime = round((closeTime - openTime) * 100) / 100
-    
-    let complateString = """
-    업무가 마감되었습니다.
-    오늘 업무를 처리한 고객은 총 \(total)명이며,
-    총 업무 시간은 \(totalWorkTime)초입니다.
-    """
-    print(complateString)
+  func reset() {
+    operationQueue.cancelAllOperations()
   }
 }

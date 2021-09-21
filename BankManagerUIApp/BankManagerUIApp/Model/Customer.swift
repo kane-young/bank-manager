@@ -9,23 +9,38 @@ import Foundation
 
 final class Customer {
   private let ticketNumber: Int
-  private var grade: CustomerGrade
+  private let grade: CustomerGrade
   private let taskType: TaskType
-  private var task: BankTask {
-    return BankTask(number: ticketNumber, grade: grade, type: taskType)
-  }
+  
+  private var isProceessed: Bool = false
+  private var isProcessLoanJudge: Bool = false
 
-  init(order orderNumber: Int, grade: CustomerGrade, taskType: TaskType) {
-    self.ticketNumber = orderNumber
+  init(ticketNumber: Int, grade: CustomerGrade, taskType: TaskType) {
+    self.ticketNumber = ticketNumber
     self.grade = grade
     self.taskType = taskType
   }
-
-  func showTask() -> BankTask {
-    return task
+  
+  func progressTask() {
+    isProceessed = true
   }
   
-  func showCustomerProperty() -> (Int, CustomerGrade, TaskType) {
-    return (ticketNumber, grade, taskType)
+  func progressHeadQuarterTask() {
+    isProcessLoanJudge = true
+  }
+  
+  func priority() -> Operation.QueuePriority {
+    return grade.queuePriority
+  }
+  
+  func isloanTasking() -> Bool {
+    if taskType == .loan {
+      return true
+    }
+    return false
+  }
+  
+  func taskTime() -> Double {
+    return taskType.taskTime
   }
 }

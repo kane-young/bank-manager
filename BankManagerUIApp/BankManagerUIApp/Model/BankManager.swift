@@ -17,9 +17,9 @@ final class BankManager {
     operationQueue.maxConcurrentOperationCount = numberOfBankers
   }
   
-  func inputCustomersIntoOperationQueue() -> Int {
-    let totalCustomerCount = customers.count
-    operationQueue.addOperations(customers.map { $0.showTask() }, waitUntilFinished: true)
-    return totalCustomerCount
-  }
+//  func inputCustomersIntoOperationQueue() -> Int {
+//    let totalCustomerCount = customers.count
+//    operationQueue.addOperations(customers.map { $0.showTask() }, waitUntilFinished: true)
+//    return totalCustomerCount
+//  }
 }

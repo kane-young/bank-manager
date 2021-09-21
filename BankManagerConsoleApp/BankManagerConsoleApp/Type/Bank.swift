@@ -7,30 +7,64 @@
 
 import Foundation
 
-final class Bank {
-  private let bankerNumber = 3
-  private var bankManager: BankManager
-  private var totalCustomerCount: Int = 0
+struct Bank {
+  private let bankManager: BankManager
   
-  init() throws {
-    try self.bankManager = BankManager(numberOfBankers: bankerNumber)
-  }
-
-  func open() {
-    let openTime = CFAbsoluteTimeGetCurrent()
-    self.totalCustomerCount = bankManager.inputCustomersIntoOperationQueue()
-    close(from: openTime, total: self.totalCustomerCount)
+  init(numberOfBanker: Int) {
+    self.bankManager = BankManager(bankerCount: numberOfBanker)
   }
   
-  private func close(from openTime: CFAbsoluteTime, total: Int) {
-    let closeTime = CFAbsoluteTimeGetCurrent()
-    let totalWorkTime = round((closeTime - openTime) * 100) / 100
+  private enum Menu: CustomStringConvertible {
+    static let selection: String = "1: 은행 개점\n2: 종료 \n입력: "
+    case open
+    case exit
     
-    let complateString = """
-    업무가 마감되었습니다.
-    오늘 업무를 처리한 고객은 총 \(total)명이며,
-    총 업무 시간은 \(totalWorkTime)초입니다.
-    """
-    print(complateString)
+    var description: String {
+      switch self {
+      case .open:
+        return "1"
+      case .exit:
+        return "2"
+      }
+    }
+  }
+  
+  private func printMenu() {
+    print(Menu.selection, terminator: "")
+  }
+  
+  private func selectMenu() throws -> Menu{
+    guard let userInput = readLine() else {
+      throw BankError.invalidInput
+    }
+    
+    switch userInput {
+    case "1":
+      return Menu.open
+    case "2":
+      return Menu.exit
+    default:
+      throw BankError.invalidInput
+    }
+  }
+  
+  func open() {
+    outer: while true {
+      printMenu()
+      var menu: Menu
+      do {
+        menu = try selectMenu()
+      } catch {
+        print(error)
+        continue
+      }
+      
+      switch menu {
+      case .open:
+        bankManager.insertCustomer(count: 10)
+      case .exit:
+        break outer
+      }
+    }
   }
 }

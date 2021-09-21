@@ -9,9 +9,7 @@
 /* Begin PBXBuildFile section */
 		853620992636DC4000BCDE8C /* Customer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853620982636DC4000BCDE8C /* Customer.swift */; };
 		8536209C2636DD3F00BCDE8C /* Bank.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8536209B2636DD3F00BCDE8C /* Bank.swift */; };
-		853C50B9263A76F300B42E5F /* BankManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853C50B8263A76F300B42E5F /* BankManager.swift */; };
 		C348A0DD263FCABF00D51367 /* BankManagerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C348A0DC263FCABF00D51367 /* BankManagerTest.swift */; };
-		C348A0E4263FCAE100D51367 /* BankManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853C50B8263A76F300B42E5F /* BankManager.swift */; };
 		C348A0E7263FCAE400D51367 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7694E79259C3EC00053667F /* main.swift */; };
 		C348A0EA263FCAE700D51367 /* Bank.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8536209B2636DD3F00BCDE8C /* Bank.swift */; };
 		C348A0ED263FCAEA00D51367 /* Customer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853620982636DC4000BCDE8C /* Customer.swift */; };
@@ -22,6 +20,9 @@
 		C348A139264165BC00D51367 /* BankTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = C348A138264165BC00D51367 /* BankTask.swift */; };
 		C3D11B2226442F1100B9EEB6 /* HeadQuarter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3D11B2126442F1100B9EEB6 /* HeadQuarter.swift */; };
 		C3D11B2626442F7C00B9EEB6 /* HeadQuarterTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3D11B2526442F7C00B9EEB6 /* HeadQuarterTask.swift */; };
+		C3E0CDD926FA0F80006F1BB3 /* DepositTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E0CDD826FA0F80006F1BB3 /* DepositTask.swift */; };
+		C3E0CDDB26FA0F96006F1BB3 /* LoanTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E0CDDA26FA0F96006F1BB3 /* LoanTask.swift */; };
+		C3E0CDDD26FA11B9006F1BB3 /* BankManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E0CDDC26FA11B9006F1BB3 /* BankManager.swift */; };
 		C3FC11D02644CDEA00DEA50C /* CustomerMakerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3FC11CF2644CDEA00DEA50C /* CustomerMakerTest.swift */; };
 		C3FC11D32644CE8700DEA50C /* TaskType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C348A1342641647C00D51367 /* TaskType.swift */; };
 		C3FC11D42644CE8700DEA50C /* CustomerGrade.swift in Sources */ = {isa = PBXBuildFile; fileRef = C348A12E2641645800D51367 /* CustomerGrade.swift */; };
@@ -50,7 +51,6 @@
 /* Begin PBXFileReference section */
 		853620982636DC4000BCDE8C /* Customer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Customer.swift; sourceTree = "<group>"; };
 		8536209B2636DD3F00BCDE8C /* Bank.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bank.swift; sourceTree = "<group>"; };
-		853C50B8263A76F300B42E5F /* BankManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BankManager.swift; sourceTree = "<group>"; };
 		C348A0DA263FCABF00D51367 /* BankManagerTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BankManagerTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C348A0DC263FCABF00D51367 /* BankManagerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BankManagerTest.swift; sourceTree = "<group>"; };
 		C348A0DE263FCABF00D51367 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -61,6 +61,9 @@
 		C348A138264165BC00D51367 /* BankTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BankTask.swift; sourceTree = "<group>"; };
 		C3D11B2126442F1100B9EEB6 /* HeadQuarter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeadQuarter.swift; sourceTree = "<group>"; };
 		C3D11B2526442F7C00B9EEB6 /* HeadQuarterTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeadQuarterTask.swift; sourceTree = "<group>"; };
+		C3E0CDD826FA0F80006F1BB3 /* DepositTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DepositTask.swift; sourceTree = "<group>"; };
+		C3E0CDDA26FA0F96006F1BB3 /* LoanTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoanTask.swift; sourceTree = "<group>"; };
+		C3E0CDDC26FA11B9006F1BB3 /* BankManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BankManager.swift; sourceTree = "<group>"; };
 		C3FC11CF2644CDEA00DEA50C /* CustomerMakerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerMakerTest.swift; sourceTree = "<group>"; };
 		C3FC11E82644DC6F00DEA50C /* HeadQuarterTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeadQuarterTest.swift; sourceTree = "<group>"; };
 		C3FC11EC2644E1DA00DEA50C /* BankTaskTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BankTaskTest.swift; sourceTree = "<group>"; };
@@ -111,6 +114,8 @@
 			isa = PBXGroup;
 			children = (
 				C348A138264165BC00D51367 /* BankTask.swift */,
+				C3E0CDDA26FA0F96006F1BB3 /* LoanTask.swift */,
+				C3E0CDD826FA0F80006F1BB3 /* DepositTask.swift */,
 				C3D11B2526442F7C00B9EEB6 /* HeadQuarterTask.swift */,
 			);
 			path = Operation;
@@ -128,10 +133,10 @@
 			isa = PBXGroup;
 			children = (
 				8536209B2636DD3F00BCDE8C /* Bank.swift */,
+				C3E0CDDC26FA11B9006F1BB3 /* BankManager.swift */,
 				C348A1292641633C00D51367 /* CustomerMaker.swift */,
 				853620982636DC4000BCDE8C /* Customer.swift */,
 				C3D11B2126442F1100B9EEB6 /* HeadQuarter.swift */,
-				853C50B8263A76F300B42E5F /* BankManager.swift */,
 			);
 			path = Type;
 			sourceTree = "<group>";
@@ -265,7 +270,6 @@
 				C3FC11DF2644CE9B00DEA50C /* BankError.swift in Sources */,
 				C3FC11D62644CE8D00DEA50C /* CustomerMaker.swift in Sources */,
 				C3FC11D32644CE8700DEA50C /* TaskType.swift in Sources */,
-				C348A0E4263FCAE100D51367 /* BankManager.swift in Sources */,
 				C3FC11E92644DC6F00DEA50C /* HeadQuarterTest.swift in Sources */,
 				C3FC11ED2644E1DA00DEA50C /* BankTaskTest.swift in Sources */,
 				C348A0E7263FCAE400D51367 /* main.swift in Sources */,
@@ -278,9 +282,11 @@
 			files = (
 				C348A12A2641633C00D51367 /* CustomerMaker.swift in Sources */,
 				C348A12F2641645800D51367 /* CustomerGrade.swift in Sources */,
+				C3E0CDDB26FA0F96006F1BB3 /* LoanTask.swift in Sources */,
 				C348A1352641647C00D51367 /* TaskType.swift in Sources */,
+				C3E0CDDD26FA11B9006F1BB3 /* BankManager.swift in Sources */,
 				C348A139264165BC00D51367 /* BankTask.swift in Sources */,
-				853C50B9263A76F300B42E5F /* BankManager.swift in Sources */,
+				C3E0CDD926FA0F80006F1BB3 /* DepositTask.swift in Sources */,
 				853620992636DC4000BCDE8C /* Customer.swift in Sources */,
 				C3D11B2226442F1100B9EEB6 /* HeadQuarter.swift in Sources */,
 				8536209C2636DD3F00BCDE8C /* Bank.swift in Sources */,

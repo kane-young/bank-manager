@@ -8,27 +8,35 @@
 import Foundation
 
 final class BankTask: Operation {
-  private var grade: CustomerGrade
-  private var number: Int
-  private var type: TaskType
-  private let headQuarter: HeadQuarter = HeadQuarter.headQuarter
+  private let customer: Customer
+  private let headQuarter: HeadQuarter = HeadQuarter.shared
+  private let firstHandler: ((_: Customer) -> ())
+  private let midHandler: ((_: Customer) -> ())
+  private let completionHandler: ((_: Customer) -> ())
   
-  init(number: Int, grade: CustomerGrade, type: TaskType) {
-    self.grade = grade
-    self.number = number
-    self.type = type
+  init(customer: Customer,
+       firstHandler: @escaping (_ : Customer) -> (),
+       midHandler: @escaping (_ : Customer) -> () = { _ in },
+       completionHandler: @escaping (_ : Customer) -> ()) {
+    self.customer = customer
+    self.firstHandler = firstHandler
+    self.midHandler = midHandler
+    self.completionHandler = completionHandler
     super.init()
-    super.queuePriority = grade.queuePriority
+    self.queuePriority = self.customer.priority()
   }
   
   override func main() {
-    let workingTime: Double = self.type.taskTime
-    print("\(number)번 \(grade)고객 \(type)업무 시작")
+    if isCancelled { return }
+    let workingTime: Double = self.customer.taskTime()
+    firstHandler(customer)
     Thread.sleep(forTimeInterval: workingTime)
-    if type == .loan {
-      headQuarter.processTask(number: number, grade: grade)
-      Thread.sleep(forTimeInterval: workingTime)
+    if customer.isloanTasking() {
+      headQuarter.evaluate(customer: customer,
+                           firstCompletion: midHandler,
+                           completionHandler: completionHandler)
+    } else {
+      completionHandler(customer)
     }
-    print("\(number)번 \(grade)고객 \(type)업무 완료")
   }
 }

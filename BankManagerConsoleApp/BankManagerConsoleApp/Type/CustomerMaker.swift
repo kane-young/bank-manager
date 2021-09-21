@@ -12,7 +12,7 @@ final class CustomerMaker {
     return try (1...count).map { try randomCustomer(number: $0) }
   }
   
-  func randomCustomer(number: Int) throws -> Customer {
+  private func randomCustomer(number: Int) throws -> Customer {
     guard let grade = CustomerGrade.random() else {
       throw BankError.invalidNumberOfCustomers
     }
