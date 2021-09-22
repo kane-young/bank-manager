@@ -8,6 +8,21 @@
 import Foundation
 
 final class BankManager {
+  private enum Comment {
+    static let preTask: (_: Customer) -> String = { customer in
+      return "\(customer.ticketNumber)번 \(customer.grade)고객 \(customer.taskType) 업무 시작"
+    }
+    static let postTask: (_: Customer) -> String = { customer in
+      return "\(customer.ticketNumber)번 \(customer.grade)고객 \(customer.taskType) 업무 완료"
+    }
+    static let preHeadQuarterTask: (_: Customer) -> String = { customer in
+      return "\(customer.ticketNumber)번 \(customer.grade)고객 대출 심사 시작"
+    }
+    static let postHeadQuarterTask: (_: Customer) -> String = { customer in
+      return "\(customer.ticketNumber)번 \(customer.grade)고객 대출 심사 완료"
+    }
+  }
+  
   private var queue = OperationQueue()
   
   init(bankerCount: Int) {
@@ -33,24 +48,30 @@ final class BankManager {
   }
     
   private func tasks(_ customers: [Customer]) -> [Operation] {
-    let tasks = customers.map { $0.task() }.map { operation -> Operation in
-      operation.preHandler = { customer in
-        print("\(customer.ticketNumber)번 \(customer.grade)고객 \(customer.taskType) 업무 시작")
+    let tasks = customers.map { $0.task() }
+    let bankTasks = configureTasksHandler(tasks)
+    return bankTasks
+  }
+  
+  private func configureTasksHandler(_ bankTasks: [BankTask]) -> [Operation] {
+    let operations = bankTasks.map { bankTask -> Operation in
+      bankTask.preHandler = {
+        print(Comment.preTask($0))
       }
-      operation.completionHandler = { customer in
-        print("\(customer.ticketNumber)번 \(customer.grade)고객 \(customer.taskType) 업무 완료")
+      bankTask.completionHandler = {
+        print(Comment.postTask($0))
       }
-      if let operation = operation as? LoanTask {
-        operation.preHeadQuarterTaskHandler = {
-          print("\($0.ticketNumber)번 \($0.grade)고객 대출 심사 시작")
+      if let loanTask = bankTask as? LoanTask {
+        loanTask.preHeadQuarterTaskHandler = {
+          print(Comment.preHeadQuarterTask($0))
         }
-        operation.completionHeadQuarterTaskHandler = {
-          print("\($0.ticketNumber)번 \($0.grade)고객 대출 심사 완료")
+        loanTask.completionHeadQuarterTaskHandler = {
+          print(Comment.postHeadQuarterTask($0))
         }
-        return operation
+        return loanTask
       }
-      return operation
+      return bankTask
     }
-    return tasks
+    return operations
   }
 }
