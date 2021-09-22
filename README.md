@@ -310,7 +310,15 @@ func test_Deposit비동기_시간경과_테스트() {
 
 - Dispatch / DispatchQueue
 - Operation / OperationQueue
-- Semaphore 공유 자원 문제
+- Semaphore 공유 자원 문제(경쟁 상황)
 - 교착 상태 (Dead Lock)
 - 비동기 프로그래밍 , 동기 프로그래밍
 - 비동기 프로그래밍 Unit Test, XCTestExpectation, fulfill() 
+
+<br>
+
+### 블로그 포스팅 - Kane
+
+[GCD-Operation 학습](https://velog.io/@leeyoungwoozz/TIL-2021.04.30-Fri)
+
+[GCD-Operation 심화 학습](https://velog.io/@leeyoungwoozz/iOS-GCD-Operation)
