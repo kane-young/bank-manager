@@ -61,7 +61,14 @@ struct Bank {
       
       switch menu {
       case .open:
-        bankManager.insertCustomer(count: 10)
+        bankManager.insertCustomer(count: 10) { (count, totalTime) in
+          let completeComment = """
+          업무가 마감되었습니다.
+          오늘 업무를 처리한 고객은 총 \(count)명이며,
+          총 업무 시간은 \(totalTime)초입니다.
+          """
+          print(completeComment)
+        }
       case .exit:
         break outer
       }

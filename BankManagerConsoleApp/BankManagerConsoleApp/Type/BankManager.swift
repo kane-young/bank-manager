@@ -14,7 +14,8 @@ final class BankManager {
     self.queue.maxConcurrentOperationCount = bankerCount
   }
   
-  func insertCustomer(count: Int) {
+  func insertCustomer(count: Int,
+                      completion: @escaping (_: Int, _: Double) -> Void) {
     let openTime = CFAbsoluteTimeGetCurrent()
     var customers: [Customer]
     
@@ -28,7 +29,7 @@ final class BankManager {
     
     let closeTime = CFAbsoluteTimeGetCurrent()
     let totalTime = round((closeTime - openTime) * 100) / 100
-    close(totalCustomerCount: customers.count, totalTime: totalTime)
+    completion(customers.count, totalTime)
   }
     
   private func tasks(_ customers: [Customer]) -> [Operation] {
@@ -39,17 +40,17 @@ final class BankManager {
       operation.completionHandler = { customer in
         print("\(customer.ticketNumber)번 \(customer.grade)고객 \(customer.taskType) 업무 완료")
       }
+      if let operation = operation as? LoanTask {
+        operation.preHeadQuarterTaskHandler = {
+          print("\($0.ticketNumber)번 \($0.grade)고객 대출 심사 시작")
+        }
+        operation.completionHeadQuarterTaskHandler = {
+          print("\($0.ticketNumber)번 \($0.grade)고객 대출 심사 완료")
+        }
+        return operation
+      }
       return operation
     }
     return tasks
-  }
-  
-  private func close(totalCustomerCount: Int, totalTime: Double) {
-    let complateString = """
-    업무가 마감되었습니다.
-    오늘 업무를 처리한 고객은 총 \(totalCustomerCount)명이며,
-    총 업무 시간은 \(totalTime)초입니다.
-    """
-    print(complateString)
   }
 }

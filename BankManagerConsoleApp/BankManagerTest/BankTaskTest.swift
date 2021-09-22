@@ -12,8 +12,8 @@ class BankTaskTest: XCTestCase {
   var bankLoanTask: BankTask!
   
   override func setUpWithError() throws {
-    bankDepositTask = BankTask(number: 1, grade: .vvip, type: .deposit)
-    bankLoanTask = BankTask(number: 2, grade: .vip, type: .loan)
+    bankDepositTask = DepositTask(customer: Customer(order: 1, grade: .vip, taskType: .deposit))
+    bankLoanTask = LoanTask(customer: Customer(order: 2, grade: .vvip, taskType: .loan))
   }
   
   override func tearDownWithError() throws {
@@ -24,8 +24,11 @@ class BankTaskTest: XCTestCase {
   ///예금작업시 0.7초 소요
   ///- timeout: 0.7초시 testFail발생
   func test_Deposit비동기_시간경과_테스트() {
+    //given
     let expectation = XCTestExpectation(description: "예금 완료")
-    bankDepositTask.completionBlock = {
+    //when
+    bankDepositTask.completionHandler = { _ in
+      //then
       expectation.fulfill()
     }
     OperationQueue().addOperation(bankDepositTask)
@@ -37,12 +40,16 @@ class BankTaskTest: XCTestCase {
   ///대출작업시 1.1초 소요
   ///- timeout: 1.1초시 testFail발생
   func test_Loan비동기_시간경과_테스트() {
+    //given
     let expectation = XCTestExpectation(description: "대출 완료")
-    bankLoanTask.completionBlock = {
+    //when
+    bankLoanTask.completionHandler = { _ in
+      //then
       expectation.fulfill()
     }
     OperationQueue().addOperation(bankLoanTask)
     
+    //대출 업무 총 1.1초 소요
     wait(for: [expectation], timeout: 1.2)
   }
 }

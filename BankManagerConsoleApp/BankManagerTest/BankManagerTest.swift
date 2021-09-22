@@ -8,30 +8,10 @@
 import XCTest
 
 class BankManagerTest: XCTestCase {
-  class bankManagerStub {
-    let operationQueue: OperationQueue = OperationQueue()
-    var customers: [Customer] = []
-    
-    init() {
-      do {
-        customers = try CustomerMaker().makeCustomer(count: 10)
-      } catch {
-        XCTFail("customers 생성 실패")
-      }
-      operationQueue.maxConcurrentOperationCount = 3
-    }
-    
-    func inputCustomersIntoOperationQueue(completion: @escaping ()->Void) {
-      operationQueue.addOperations(customers.map { $0.showTask() }, waitUntilFinished: true)
-      operationQueue.waitUntilAllOperationsAreFinished()
-      completion()
-    }
-  }
-  
-  var bankManager: bankManagerStub!
+  var bankManager: BankManager!
   
   override func setUpWithError() throws {
-    bankManager = bankManagerStub()
+    bankManager = BankManager(bankerCount: 1)
   }
   
   override func tearDownWithError() throws {
@@ -41,12 +21,13 @@ class BankManagerTest: XCTestCase {
   ///10명 고객 최대 업무 걸리는 시간 11초
   ///대출 - 총 1.1초
   ///예금 - 총 0.7초
-  func test_bankManager_Stub을_통한_inputCustomersIntoOperationQueue_메서드_테스트() {
+  func test_when_bankManager에서_고객10명_은행원1명_insert할시_최대11초소요() {
     let expectation = XCTestExpectation(description: "Customers 업무 완료")
-    bankManager.inputCustomersIntoOperationQueue(completion: {
-      expectation.fulfill()
-    })
-    
-    wait(for: [expectation], timeout: 12)
+    OperationQueue().addOperation { [weak self] in
+      self?.bankManager.insertCustomer(count: 10, completion: { _,n_  in
+        expectation.fulfill()
+      })
+    }
+    wait(for: [expectation], timeout: 11)
   }
 }

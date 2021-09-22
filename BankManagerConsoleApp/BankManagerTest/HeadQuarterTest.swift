@@ -11,7 +11,7 @@ class HeadQuarterTest: XCTestCase {
   var headQuarter: HeadQuarter!
   
   override func setUpWithError() throws {
-    headQuarter = HeadQuarter.headQuarter
+    headQuarter = HeadQuarter.shared
   }
   
   override func tearDownWithError() throws {
@@ -21,9 +21,12 @@ class HeadQuarterTest: XCTestCase {
   //대출심사과정 0.5초
   //- timeout: 0.5초 지정시 testFail
   func test_본사_대출고객심사_비동기테스트() {
+    //given
     let expectation = XCTestExpectation(description: "대출심사완료")
-    OperationQueue().addOperation {
-      self.headQuarter.processTask(number: 1, grade: .vip, completion: {
+    //when
+    OperationQueue().addOperation { [weak self] in
+      self?.headQuarter.process(customer: Customer(order: 1, grade: .vip, taskType: .deposit), preHandler: nil, completionHandler: { _ in
+        //then
         expectation.fulfill()
       })
     }
@@ -31,4 +34,3 @@ class HeadQuarterTest: XCTestCase {
     wait(for: [expectation], timeout: 0.51)
   }
 }
-

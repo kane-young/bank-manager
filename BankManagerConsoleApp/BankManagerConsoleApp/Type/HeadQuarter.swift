@@ -15,14 +15,12 @@ final class HeadQuarter {
     operationQueue.maxConcurrentOperationCount = 1
   }
   
-  func process(customer: Customer) {
+  func process(customer: Customer,
+               preHandler: ((_: Customer) -> Void)?,
+               completionHandler: ((_: Customer) -> Void)?) {
     let task = HeadQuarterTask(customer: customer)
-    task.preHandler = { customer in
-      print("\(customer.ticketNumber)번 \(customer.grade)고객 대출 심사 시작")
-    }
-    task.completionHandler = { customer in
-      print("\(customer.ticketNumber)번 \(customer.grade)고객 대출 심사 완료")
-    }
+    task.preHandler = preHandler
+    task.completionHandler = completionHandler
     operationQueue.addOperations([task] , waitUntilFinished: true)
   }
 }
